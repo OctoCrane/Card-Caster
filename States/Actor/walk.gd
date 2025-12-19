@@ -14,6 +14,15 @@ func enter():
 	print("Entered: ", name)
 
 func update(delta : float):
+	if not player.is_on_floor():
+		if cooldown <= 0:
+			transitioned.emit(self, "fall")
+		else:
+			cooldown -= delta
+	else:
+		cooldown = coyote_time
+
+func physics_update(delta: float) -> void:
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction := (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
@@ -25,13 +34,3 @@ func update(delta : float):
 			player.velocity.z = direction.z * walk_speed * delta
 		else:
 			transitioned.emit(self, "idle")
-			player.velocity.x = move_toward(player.velocity.x, 0, walk_speed)
-			player.velocity.z = move_toward(player.velocity.z, 0, walk_speed)
-	
-	if not player.is_on_floor():
-		if cooldown <= 0:
-			transitioned.emit("jump")
-		else:
-			cooldown -= delta
-	else:
-		cooldown = coyote_time

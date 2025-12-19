@@ -1,7 +1,14 @@
 extends CharacterBody3D
 class_name Player
 
-@export var baseSpeed := 5.0
+@export var walkSpeed := 5.0
+@export var jumpVelocity := 4.5
+@export var airSpeed := 170.0
+@export var airFriction := 0.01
+@export var groundFriction := 0.002
+@export var jumpBuffer := 0.1
+@export var coyoteTime := 1.0
+
 @export var lookSensitivity := 0.003
 
 @export_group("References")
@@ -12,7 +19,7 @@ var time_since_last_tick := 0.0
 var tick_interval := 0.5
 var tick_count := 0
 
-var speed := baseSpeed
+var speed := walkSpeed
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -50,6 +57,9 @@ func _physics_process(delta: float) -> void:
 	
 
 	move_and_slide()
+
+func jump(jump_velocity : float = jumpVelocity):
+	velocity.y = jump_velocity
 
 func perform_tick():
 	tick_count += 1
