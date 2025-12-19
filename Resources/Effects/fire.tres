@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=2 format=3 uid="uid://d332m6jkroye0"]
+
+[ext_resource type="Script" uid="uid://dc8wjidjys4h1" path="res://Scripts/Status/effect.gd" id="1_2056d"]
+
+[resource]
+script = ExtResource("1_2056d")
+name = "Fire"
+type = "DOT"
+intensity = 2.0
+metadata/_custom_type_script = "uid://dc8wjidjys4h1"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Effect" load_steps=2 format=3 uid="uid://b3jdic8ualelm"]
+
+[ext_resource type="Script" uid="uid://dc8wjidjys4h1" path="res://Scripts/Status/effect.gd" id="1_qsuo5"]
+
+[resource]
+script = ExtResource("1_qsuo5")
+name = "Fatigue"
+type = "Speed"
+intensity = 0.5
+metadata/_custom_type_script = "uid://dc8wjidjys4h1"
