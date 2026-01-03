@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://xwwgy4iqemps"]
+[gd_scene load_steps=13 format=3 uid="uid://xwwgy4iqemps"]
 
 [ext_resource type="Script" uid="uid://5dvms5aml23w" path="res://Actors/Scripts/player.gd" id="1_vgqql"]
 [ext_resource type="Script" uid="uid://n6ransvmjod3" path="res://Scripts/Status/status.gd" id="2_cvnsp"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://df0kfbr8xtfkd" path="res://Actors/States/idle.gd" id="6_3smsa"]
 [ext_resource type="Script" uid="uid://hiwqctx1aoh0" path="res://Actors/States/walk.gd" id="7_3smsa"]
 [ext_resource type="Script" uid="uid://cqiid7lckea4" path="res://Actors/States/fall.gd" id="8_8erm5"]
-[ext_resource type="Script" uid="uid://kaek7u1e0nvu" path="res://Actors/States/jump.gd" id="9_f1ek2"]
 
 [sub_resource type="Resource" id="Resource_6t5aa"]
 script = ExtResource("2_cvnsp")
@@ -61,15 +60,11 @@ metadata/_custom_type_script = "uid://df0kfbr8xtfkd"
 [node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
 script = ExtResource("7_3smsa")
 actor = NodePath("../..")
+walk_speed = null
+disabled = null
 metadata/_custom_type_script = "uid://hiwqctx1aoh0"
 
 [node name="Fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
 script = ExtResource("8_8erm5")
 actor = NodePath("../..")
 metadata/_custom_type_script = "uid://cqiid7lckea4"
-
-[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("actor")]
-script = ExtResource("9_f1ek2")
-actor = NodePath("../..")
-disabled = true
-metadata/_custom_type_script = "uid://kaek7u1e0nvu"

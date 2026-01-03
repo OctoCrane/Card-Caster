@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://ikqg70bpmrab"]
+
+[ext_resource type="PackedScene" uid="uid://u5ihhslbcyki" path="res://Scenes/player.tscn" id="1_km00b"]
+[ext_resource type="Material" uid="uid://bvrkjmd2771mp" path="res://Assets/Materials/Black_Grid.tres" id="2_euxp1"]
+[ext_resource type="Script" uid="uid://t24hi0kb5uy1" path="res://Scripts/hitbox.gd" id="3_plmyo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o6831"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_km00b"]
+sky_material = SubResource("ProceduralSkyMaterial_o6831")
+
+[sub_resource type="Environment" id="Environment_euxp1"]
+background_mode = 2
+sky = SubResource("Sky_km00b")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plmyo"]
+
+[node name="testlevel_001" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_km00b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+jumpVelocity = 4.5
+airSpeed = 170.0
+airFriction = 0.01
+groundFriction = 0.002
+jumpBuffer = 0.1
+coyoteTime = 1.0
+lookSensitivity = 0.003
+
+[node name="World & Lighting" type="Node" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World & Lighting"]
+environment = SubResource("Environment_euxp1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World & Lighting"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("2_euxp1")
+use_collision = true
+size = Vector3(50, 1, 50)
+
+[node name="HitBox" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6)
+collision_mask = 0
+script = ExtResource("3_plmyo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_plmyo")
+debug_color = Color(1, 0, 0, 0.41960785)

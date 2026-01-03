@@ -23,6 +23,13 @@ glow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_km00b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+jumpVelocity = 4.5
+airSpeed = 170.0
+airFriction = 0.01
+groundFriction = 0.002
+jumpBuffer = 0.1
+coyoteTime = 1.0
+lookSensitivity = 0.003
 
 [node name="World & Lighting" type="Node" parent="."]
 
