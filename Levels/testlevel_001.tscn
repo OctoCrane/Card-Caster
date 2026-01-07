@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ikqg70bpmrab"]
 
-[ext_resource type="Material" uid="uid://bvrkjmd2771mp" path="res://Assets/2D/Materials/Black_Grid.tres" id="1_r2jo2"]
+[ext_resource type="Material" uid="uid://bvrkjmd2771mp" path="res://Assets/3D/Materials/Black_Grid.tres" id="1_r2jo2"]
 [ext_resource type="Script" uid="uid://t24hi0kb5uy1" path="res://Scripts/hitbox.gd" id="2_3dtu7"]
 [ext_resource type="PackedScene" uid="uid://xwwgy4iqemps" path="res://Scenes/player.tscn" id="3_8kvos"]
 
