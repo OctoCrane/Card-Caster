@@ -1,5 +1,5 @@
 extends State
-class_name Walk
+class_name ActorWalk
 
 @export var actor : Actor
 

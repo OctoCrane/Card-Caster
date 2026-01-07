@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 func on_transition(new_state_name : StringName):
 	var new_state : State = states.get(new_state_name)
 	if new_state != null:
-		if new_state != current_state or not new_state.disabled:
+		if new_state != current_state and not new_state.disabled:
 			current_state.exit()
 			current_state = new_state
 			current_state.enter()

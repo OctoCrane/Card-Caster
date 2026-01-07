@@ -1,5 +1,5 @@
 extends State
-class_name Jump
+class_name ActorJump
 
 @export var actor : Actor
 @export var jump_velocity := 5.0

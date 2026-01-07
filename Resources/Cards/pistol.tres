@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardProperties" load_steps=3 format=3 uid="uid://h5uc7dii8657"]
 
 [ext_resource type="Script" uid="uid://dnxuro4nafmxd" path="res://Resources/Cards/card_properties.gd" id="1_mwjw8"]
-[ext_resource type="Texture2D" uid="uid://c8x25hqrnkwlq" path="res://Assets/2D/Cards/CardPlaceHolder.png" id="2_tvclm"]
+[ext_resource type="Texture2D" uid="uid://bcyxstd2dfi5f" path="res://Assets/2D/Cards/Woeful West/Pistol.png" id="2_tvclm"]
 
 [resource]
 script = ExtResource("1_mwjw8")

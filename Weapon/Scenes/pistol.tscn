@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd6yj3ss7671c"]
+
+[ext_resource type="Script" uid="uid://cj4cismxadpr2" path="res://Weapon/weapon.gd" id="1_lfpbp"]
+[ext_resource type="PackedScene" uid="uid://r3rkumwf3ik2" path="res://Assets/3D/Models/revolver.glb" id="2_6ijqn"]
+[ext_resource type="Script" uid="uid://cq1w2oryw54co" path="res://Scripts/States/state_machine.gd" id="2_4447s"]
+
+[sub_resource type="Animation" id="Animation_ki264"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("revolver:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("revolver:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("revolver:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.105, 0.105, 0.105)]
+}
+
+[sub_resource type="Animation" id="Animation_wyech"]
+resource_name = "shoot"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("revolver:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.196, 0.221, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("revolver:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.73333335),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -0.6963864), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("revolver:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.105, 0.105, 0.105)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t7l8t"]
+_data = {
+&"RESET": SubResource("Animation_ki264"),
+&"shoot": SubResource("Animation_wyech")
+}
+
+[node name="Weapon" type="Node3D"]
+script = ExtResource("1_lfpbp")
+
+[node name="revolver" parent="." instance=ExtResource("2_6ijqn")]
+transform = Transform3D(0.105, 0, 0, 0, 0.105, 0, 0, 0, 0.105, 0, 0, 0)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_4447s")
+metadata/_custom_type_script = "uid://cq1w2oryw54co"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t7l8t")
+}

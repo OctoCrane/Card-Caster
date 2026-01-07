@@ -1,5 +1,5 @@
 extends State
-class_name Idle
+class_name ActorIdle
 
 @export var actor : Actor
 @export var ground_friction : float = 0.99

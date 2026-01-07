@@ -5,6 +5,7 @@ class_name Player
 @export var card_container : Node
 
 @export var head : Node3D
+@export var weapon_manager : Node3D
 @export var max_look_angle := 90.
 
 @export_group("Preferences")
@@ -29,7 +30,6 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	init_deck()
-	show_deck()
 
 func _input(event: InputEvent) -> void:
 	# Determines Input Type
@@ -48,6 +48,13 @@ func _input(event: InputEvent) -> void:
 	
 	handle_camera(event)
 
+func apply_texture(texture : Texture):
+	var texture_rect = TextureRect.new()
+	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	texture_rect.custom_minimum_size = Vector2(66.0, 96.0)
+	texture_rect.texture = texture
+	card_container.add_child(texture_rect)
+
 func show_deck():
 	if card_container.get_children():
 		for child in card_container.get_children():
@@ -57,14 +64,6 @@ func show_deck():
 	apply_texture(card2.texture)
 	apply_texture(card3.texture)
 	apply_texture(card4.texture)
-	
-
-func apply_texture(texture : Texture):
-	var texture_rect = TextureRect.new()
-	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	texture_rect.custom_minimum_size = Vector2(66.0, 96.0)
-	texture_rect.texture = texture
-	card_container.add_child(texture_rect)
 
 func init_deck():
 	start_deck.shuffle()
@@ -76,7 +75,17 @@ func init_deck():
 	
 	for i in range(len(start_deck) - 4):
 		reserve_deck.append(start_deck[i + 4])
+	
+	show_deck()
 
+func use_card(card : CardProperties):
+	if "Weapon":
+		var weapon = card.scene.instantiate()
+
+
+func use_deck(pos : int):
+	if pos == 1:
+		card1.use()
 
 func handle_camera(event: InputEvent):
 	if event is InputEventMouseMotion:
