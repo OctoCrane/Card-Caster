@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardProperties" load_steps=3 format=3 uid="uid://h5uc7dii8657"]
+
+[ext_resource type="Script" uid="uid://dnxuro4nafmxd" path="res://Resources/Cards/card_properties.gd" id="1_mwjw8"]
+[ext_resource type="Texture2D" uid="uid://c8x25hqrnkwlq" path="res://Assets/2D/Cards/CardPlaceHolder.png" id="2_tvclm"]
+
+[resource]
+script = ExtResource("1_mwjw8")
+name = &"Pistol"
+mana_cost = 4
+texture = ExtResource("2_tvclm")
+collection = &"Woeful West"
+type = 0
+metadata/_custom_type_script = "uid://dnxuro4nafmxd"

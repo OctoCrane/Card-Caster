@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtre4jx25oehr"
-path.s3tc="res://.godot/imported/_1m x 1m (black).png-13155673d57a1a32f594060e10d9b8db.s3tc.ctex"
+uid="uid://6mlr4rev65b1"
+path.s3tc="res://.godot/imported/CardPlaceHolder2.png-a8da73dd53de66bbafc1cfb7e3eefa41.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/Textures/_1m x 1m (black).png"
-dest_files=["res://.godot/imported/_1m x 1m (black).png-13155673d57a1a32f594060e10d9b8db.s3tc.ctex"]
+source_file="res://Assets/2D/Cards/CardPlaceHolder2.png"
+dest_files=["res://.godot/imported/CardPlaceHolder2.png-a8da73dd53de66bbafc1cfb7e3eefa41.s3tc.ctex"]
 
 [params]
 

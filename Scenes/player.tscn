@@ -1,14 +1,29 @@
-[gd_scene load_steps=14 format=3 uid="uid://xwwgy4iqemps"]
+[gd_scene load_steps=20 format=3 uid="uid://xwwgy4iqemps"]
 
 [ext_resource type="Script" uid="uid://5dvms5aml23w" path="res://Actors/Scripts/player.gd" id="1_vgqql"]
 [ext_resource type="Script" uid="uid://n6ransvmjod3" path="res://Scripts/Status/status.gd" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://dnxuro4nafmxd" path="res://Resources/Cards/card_properties.gd" id="2_ukyrk"]
 [ext_resource type="Script" uid="uid://bq3ag34b21jii" path="res://Scripts/hurtbox.gd" id="3_6t5aa"]
+[ext_resource type="Resource" uid="uid://h5uc7dii8657" path="res://Resources/Cards/pistol.tres" id="3_7dp3o"]
 [ext_resource type="Script" uid="uid://dc8wjidjys4h1" path="res://Scripts/Status/effect.gd" id="3_vgqql"]
 [ext_resource type="Script" uid="uid://cq1w2oryw54co" path="res://Scripts/States/state_machine.gd" id="5_x3wgy"]
 [ext_resource type="Script" uid="uid://df0kfbr8xtfkd" path="res://Actors/States/idle.gd" id="6_3smsa"]
 [ext_resource type="Script" uid="uid://hiwqctx1aoh0" path="res://Actors/States/walk.gd" id="7_3smsa"]
 [ext_resource type="Script" uid="uid://cqiid7lckea4" path="res://Actors/States/fall.gd" id="8_8erm5"]
 [ext_resource type="Script" uid="uid://kaek7u1e0nvu" path="res://Actors/States/jump.gd" id="9_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://6mlr4rev65b1" path="res://Assets/2D/Cards/CardPlaceHolder2.png" id="10_tx1dd"]
+
+[sub_resource type="Resource" id="Resource_pu2lt"]
+script = ExtResource("2_ukyrk")
+texture = ExtResource("10_tx1dd")
+type = null
+metadata/_custom_type_script = "uid://dnxuro4nafmxd"
+
+[sub_resource type="Resource" id="Resource_ukyrk"]
+script = ExtResource("2_ukyrk")
+texture = ExtResource("10_tx1dd")
+type = null
+metadata/_custom_type_script = "uid://dnxuro4nafmxd"
 
 [sub_resource type="Resource" id="Resource_6t5aa"]
 script = ExtResource("2_cvnsp")
@@ -21,8 +36,13 @@ size = Vector3(1, 2, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4flbx"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("head")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gymyn"]
+bg_color = Color(0.14901961, 0.14901961, 0.14901961, 0.8666667)
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("card_container", "head")]
 script = ExtResource("1_vgqql")
+start_deck = Array[ExtResource("2_ukyrk")]([ExtResource("3_7dp3o"), SubResource("Resource_pu2lt"), SubResource("Resource_ukyrk"), ExtResource("3_7dp3o")])
+card_container = NodePath("UI/PanelContainer/MarginContainer/CardContainer")
 head = NodePath("Head")
 metadata/_custom_type_script = "uid://5dvms5aml23w"
 
@@ -73,3 +93,36 @@ script = ExtResource("9_f1ek2")
 actor = NodePath("../..")
 disabled = true
 metadata/_custom_type_script = "uid://kaek7u1e0nvu"
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -138.0
+offset_top = -121.0
+offset_right = 138.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gymyn")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 7
+
+[node name="CardContainer" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer"]
+layout_mode = 2
