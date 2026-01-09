@@ -2,7 +2,6 @@ extends State
 class_name ActorIdle
 
 @export var actor : Actor
-@export var ground_friction : float = 0.99
 
 func process_frames(_delta: float):
 	if not actor.is_on_floor():
@@ -13,7 +12,6 @@ func process_frames(_delta: float):
 		transition.emit("walk")
 
 func process_physics(delta: float):
-	actor.velocity.x = lerp(actor.velocity.x, 0., 1-pow(1-ground_friction, delta))
-	actor.velocity.z = lerp(actor.velocity.z, 0., 1-pow(1-ground_friction, delta))
+	actor.handle_ground_physics(delta, 0)
 	
 	actor.move_and_slide()

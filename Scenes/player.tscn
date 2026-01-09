@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://xwwgy4iqemps"]
+[gd_scene load_steps=23 format=3 uid="uid://xwwgy4iqemps"]
 
 [ext_resource type="Script" uid="uid://5dvms5aml23w" path="res://Actors/Scripts/player.gd" id="1_vgqql"]
 [ext_resource type="Script" uid="uid://n6ransvmjod3" path="res://Scripts/Status/status.gd" id="2_cvnsp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bq3ag34b21jii" path="res://Scripts/hurtbox.gd" id="3_6t5aa"]
 [ext_resource type="Resource" uid="uid://h5uc7dii8657" path="res://Resources/Cards/pistol.tres" id="3_7dp3o"]
 [ext_resource type="Script" uid="uid://dc8wjidjys4h1" path="res://Scripts/Status/effect.gd" id="3_vgqql"]
+[ext_resource type="Script" uid="uid://dbp053bild0d6" path="res://Weapon/weapon_manager.gd" id="5_ukyrk"]
 [ext_resource type="Script" uid="uid://cq1w2oryw54co" path="res://Scripts/States/state_machine.gd" id="5_x3wgy"]
 [ext_resource type="Script" uid="uid://df0kfbr8xtfkd" path="res://Actors/States/actor_idle.gd" id="6_3smsa"]
 [ext_resource type="Script" uid="uid://hiwqctx1aoh0" path="res://Actors/States/actor_walk.gd" id="7_3smsa"]
@@ -25,6 +26,18 @@ texture = ExtResource("10_tx1dd")
 type = null
 metadata/_custom_type_script = "uid://dnxuro4nafmxd"
 
+[sub_resource type="Resource" id="Resource_7dp3o"]
+script = ExtResource("2_ukyrk")
+texture = ExtResource("10_tx1dd")
+type = null
+metadata/_custom_type_script = "uid://dnxuro4nafmxd"
+
+[sub_resource type="Resource" id="Resource_h4iuc"]
+script = ExtResource("2_ukyrk")
+texture = ExtResource("10_tx1dd")
+type = null
+metadata/_custom_type_script = "uid://dnxuro4nafmxd"
+
 [sub_resource type="Resource" id="Resource_6t5aa"]
 script = ExtResource("2_cvnsp")
 metadata/_custom_type_script = "uid://n6ransvmjod3"
@@ -39,10 +52,12 @@ size = Vector3(1, 2, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gymyn"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 0.8666667)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("card_container", "head")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("timer_arr", "card_container", "weapon_manager", "head")]
 script = ExtResource("1_vgqql")
-start_deck = Array[ExtResource("2_ukyrk")]([ExtResource("3_7dp3o"), SubResource("Resource_pu2lt"), SubResource("Resource_ukyrk"), ExtResource("3_7dp3o")])
+start_deck = Array[ExtResource("2_ukyrk")]([ExtResource("3_7dp3o"), SubResource("Resource_pu2lt"), SubResource("Resource_ukyrk"), ExtResource("3_7dp3o"), ExtResource("3_7dp3o"), SubResource("Resource_7dp3o"), ExtResource("3_7dp3o"), SubResource("Resource_h4iuc")])
+timer_arr = [NodePath("CardTimer1"), NodePath("CardTimer2"), NodePath("CardTimer3"), NodePath("CardTimer4")]
 card_container = NodePath("UI/PanelContainer/MarginContainer/CardContainer")
+weapon_manager = NodePath("Head/Camera3D/WeaponManager")
 head = NodePath("Head")
 metadata/_custom_type_script = "uid://5dvms5aml23w"
 
@@ -52,7 +67,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 current = true
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera3D"]
+[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("actor", "head")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39477235, -0.19001335, -0.61467856)
+script = ExtResource("5_ukyrk")
+actor = NodePath("../../..")
+head = NodePath("..")
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 0
@@ -127,3 +146,19 @@ theme_override_constants/margin_bottom = 7
 
 [node name="CardContainer" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="CardTimer1" type="Timer" parent="."]
+wait_time = 1.0999999999999999
+one_shot = true
+
+[node name="CardTimer2" type="Timer" parent="."]
+wait_time = 1.0999999999999999
+one_shot = true
+
+[node name="CardTimer3" type="Timer" parent="."]
+wait_time = 1.0999999999999999
+one_shot = true
+
+[node name="CardTimer4" type="Timer" parent="."]
+wait_time = 1.0999999999999999
+one_shot = true

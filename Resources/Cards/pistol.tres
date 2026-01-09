@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardProperties" load_steps=3 format=3 uid="uid://h5uc7dii8657"]
+[gd_resource type="Resource" script_class="CardProperties" load_steps=4 format=3 uid="uid://h5uc7dii8657"]
 
+[ext_resource type="PackedScene" uid="uid://cd6yj3ss7671c" path="res://Weapon/Scenes/pistol.tscn" id="1_jp1cm"]
 [ext_resource type="Script" uid="uid://dnxuro4nafmxd" path="res://Resources/Cards/card_properties.gd" id="1_mwjw8"]
 [ext_resource type="Texture2D" uid="uid://bcyxstd2dfi5f" path="res://Assets/2D/Cards/Woeful West/Pistol.png" id="2_tvclm"]
 
@@ -10,4 +11,5 @@ mana_cost = 4
 texture = ExtResource("2_tvclm")
 collection = &"Woeful West"
 type = 0
+scene = ExtResource("1_jp1cm")
 metadata/_custom_type_script = "uid://dnxuro4nafmxd"

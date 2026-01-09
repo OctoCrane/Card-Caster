@@ -3,6 +3,7 @@ class_name ActorJump
 
 @export var actor : Actor
 @export var jump_velocity := 5.0
+@export var air_move_speed := 100.0
 
 func enter():
 	actor.velocity.y = jump_velocity
@@ -18,6 +19,5 @@ func process_frames(_delta: float):
 			transition.emit("fall")
 
 func process_physics(delta: float):
-	actor.velocity += actor.get_gravity() * delta
-	
+	actor.handle_air_physics(delta, air_move_speed)
 	actor.move_and_slide()
