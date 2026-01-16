@@ -6,7 +6,7 @@ class_name Weapon
 @export var damage_per_bullet := 10
 @export var bullet_count := 1
 @export var inaccuracy := 0
-@export var max_duration := 10.0
+@export var max_duration := 5.0
 
 var dur := max_duration
 

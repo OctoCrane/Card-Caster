@@ -96,22 +96,27 @@ func use_deck(pos : int):
 	if main_cards[pos] == null:
 		return
 	
-	use_card(main_cards[pos])
-	main_cards[pos] = null
-	timer_arr[pos].start()
-	show_deck()
+	if use_card(main_cards[pos]):
+		main_cards[pos] = null
+		timer_arr[pos].start()
+		show_deck()
 
-func use_card(card : CardProperties):
+func use_card(card : CardProperties) -> bool:
 	if card.scene == null:
-		return
+		return true
 	
 	if "Weapon":
-		var weapon = card.scene.instantiate()
-		weapon.weapon_manager = weapon_manager
-		weapon_manager.add_child(weapon)
+		if weapon_manager.get_child_count() == 0:
+			var weapon = card.scene.instantiate()
+			weapon.weapon_manager = weapon_manager
+			weapon_manager.add_child(weapon)
+		else:
+			return false
 	else: 
-		return
+		return true
+	
 	reserve_deck.append(card)
+	return true
 
 func replace_card(pos : int):
 	if main_cards[pos] == null:
