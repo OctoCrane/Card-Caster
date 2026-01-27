@@ -46,7 +46,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif event.is_action_pressed("menu"):
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:	
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:
 			get_tree().quit()
@@ -105,8 +105,13 @@ func use_card(card : CardProperties) -> bool:
 	if card.scene == null:
 		return true
 	
-	if "Weapon":
-		if weapon_manager.get_child_count() == 0:
+	if card.type == 0:
+		var weapon_equipped := false
+		for child in weapon_manager.get_children():
+			if child is Weapon:
+				weapon_equipped = true
+		if not weapon_equipped:
+			print("Hey")
 			var weapon = card.scene.instantiate()
 			weapon.weapon_manager = weapon_manager
 			weapon_manager.add_child(weapon)
