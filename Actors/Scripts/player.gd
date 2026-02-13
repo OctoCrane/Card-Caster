@@ -13,12 +13,15 @@ class_name Player
 @export var mouse_sensitivity := 0.002
 #@export var controller_sensitivity := 0.001
 
+@onready var progress_bar: ProgressBar = $UI/ProgressBar
+
+var init_health = true
+
 var placeholder_tex : Texture = load("res://Assets/2D/Cards/CardPlaceHolder.png")
 
 var input_mode := InputMode.KEYBOARD_MOUSE
 
 var main_cards : Array[CardProperties]
-
 var reserve_deck : Array[CardProperties]
 
 enum InputMode {
@@ -35,6 +38,9 @@ func _ready() -> void:
 	timer_arr[3].timeout.connect(card4_replace)
 	
 	init_deck()
+
+func _process(_delta: float) -> void:
+	progress_bar.value = int((float(status.health) / float(status.max_health)) * 100)
 
 func _input(event: InputEvent) -> void:
 	# Determines Input Type
@@ -62,7 +68,7 @@ func _input(event: InputEvent) -> void:
 	
 	handle_camera(event)
 
-func apply_texture(texture :):
+func apply_texture(texture : Texture2D):
 	var texture_rect = TextureRect.new()
 	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.custom_minimum_size = Vector2(66.0, 96.0)
@@ -111,13 +117,12 @@ func use_card(card : CardProperties) -> bool:
 			if child is Weapon:
 				weapon_equipped = true
 		if not weapon_equipped:
-			print("Hey")
 			var weapon = card.scene.instantiate()
 			weapon.weapon_manager = weapon_manager
 			weapon_manager.add_child(weapon)
 		else:
 			return false
-	else: 
+	else:
 		return true
 	
 	reserve_deck.append(card)

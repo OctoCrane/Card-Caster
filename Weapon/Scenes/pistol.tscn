@@ -130,7 +130,7 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(4),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -204,6 +204,7 @@ _data = {
 [node name="Weapon" type="Node3D" node_paths=PackedStringArray("anim_player")]
 script = ExtResource("1_lfpbp")
 anim_player = NodePath("AnimationPlayer")
+damage_per_bullet = 35
 metadata/_custom_type_script = "uid://cj4cismxadpr2"
 
 [node name="revolver" parent="." instance=ExtResource("2_6ijqn")]

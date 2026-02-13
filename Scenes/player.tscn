@@ -1,11 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://xwwgy4iqemps"]
+[gd_scene load_steps=21 format=3 uid="uid://xwwgy4iqemps"]
 
 [ext_resource type="Script" uid="uid://5dvms5aml23w" path="res://Actors/Scripts/player.gd" id="1_vgqql"]
 [ext_resource type="Script" uid="uid://n6ransvmjod3" path="res://Scripts/Status/status.gd" id="2_cvnsp"]
 [ext_resource type="Script" uid="uid://dnxuro4nafmxd" path="res://Resources/Cards/card_properties.gd" id="2_ukyrk"]
 [ext_resource type="Script" uid="uid://bq3ag34b21jii" path="res://Scripts/hurtbox.gd" id="3_6t5aa"]
 [ext_resource type="Resource" uid="uid://h5uc7dii8657" path="res://Resources/Cards/pistol.tres" id="3_7dp3o"]
-[ext_resource type="Script" uid="uid://dc8wjidjys4h1" path="res://Scripts/Status/effect.gd" id="3_vgqql"]
 [ext_resource type="Script" uid="uid://dbp053bild0d6" path="res://Weapon/weapon_manager.gd" id="5_ukyrk"]
 [ext_resource type="Script" uid="uid://cq1w2oryw54co" path="res://Scripts/States/state_machine.gd" id="5_x3wgy"]
 [ext_resource type="Script" uid="uid://df0kfbr8xtfkd" path="res://Actors/States/actor_idle.gd" id="6_3smsa"]
@@ -38,10 +37,6 @@ texture = ExtResource("10_tx1dd")
 type = null
 metadata/_custom_type_script = "uid://dnxuro4nafmxd"
 
-[sub_resource type="Resource" id="Resource_6t5aa"]
-script = ExtResource("2_cvnsp")
-metadata/_custom_type_script = "uid://n6ransvmjod3"
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_vgqql"]
 size = Vector3(1, 2, 1)
 
@@ -52,31 +47,38 @@ size = Vector3(1, 2, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gymyn"]
 bg_color = Color(0.14901961, 0.14901961, 0.14901961, 0.8666667)
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("timer_arr", "card_container", "weapon_manager", "head")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("timer_arr", "card_container", "weapon_manager", "head", "status")]
+collision_layer = 4
+collision_mask = 9
 script = ExtResource("1_vgqql")
 start_deck = Array[ExtResource("2_ukyrk")]([ExtResource("3_7dp3o"), SubResource("Resource_pu2lt"), SubResource("Resource_ukyrk"), ExtResource("3_7dp3o"), ExtResource("3_7dp3o"), SubResource("Resource_7dp3o"), ExtResource("3_7dp3o"), SubResource("Resource_h4iuc")])
 timer_arr = [NodePath("CardTimer1"), NodePath("CardTimer2"), NodePath("CardTimer3"), NodePath("CardTimer4")]
 card_container = NodePath("UI/PanelContainer/MarginContainer/CardContainer")
-weapon_manager = NodePath("Head/Camera3D/WeaponManager")
-head = NodePath("Head")
+weapon_manager = NodePath("Camera3D/WeaponManager")
+head = NodePath("Camera3D")
+status = NodePath("Status")
+auto_bhop = false
 metadata/_custom_type_script = "uid://5dvms5aml23w"
 
-[node name="Head" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+[node name="Status" type="Node" parent="."]
+script = ExtResource("2_cvnsp")
+metadata/_custom_type_script = "uid://n6ransvmjod3"
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 current = true
 
-[node name="WeaponManager" type="Node3D" parent="Head/Camera3D" node_paths=PackedStringArray("actor", "head")]
+[node name="WeaponManager" type="Node3D" parent="Camera3D" node_paths=PackedStringArray("actor", "head")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39477235, -0.19001335, -0.61467856)
 script = ExtResource("5_ukyrk")
-actor = NodePath("../../..")
+actor = NodePath("../..")
 head = NodePath("..")
 
-[node name="Hurtbox" type="Area3D" parent="."]
+[node name="Hurtbox" type="Area3D" parent="." node_paths=PackedStringArray("actor")]
 collision_layer = 0
+collision_mask = 2
 script = ExtResource("3_6t5aa")
-status = SubResource("Resource_6t5aa")
+actor = NodePath("..")
 metadata/_custom_type_script = "uid://bq3ag34b21jii"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
@@ -122,6 +124,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Middle" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Up" type="Line2D" parent="UI/Middle"]
+points = PackedVector2Array(0, -2, 0, -9)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Down" type="Line2D" parent="UI/Middle"]
+points = PackedVector2Array(0, 2, 0, 9)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Right" type="Line2D" parent="UI/Middle"]
+points = PackedVector2Array(2, 0, 9, 0)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="Left" type="Line2D" parent="UI/Middle"]
+points = PackedVector2Array(-2, 0, -9, 0)
+width = 3.0
+default_color = Color(0, 0, 0, 1)
+
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = -1
@@ -146,6 +180,20 @@ theme_override_constants/margin_bottom = 7
 
 [node name="CardContainer" type="HBoxContainer" parent="UI/PanelContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -27.0
+offset_right = 128.0
+grow_horizontal = 2
+grow_vertical = 0
+exp_edit = true
 
 [node name="CardTimer1" type="Timer" parent="."]
 wait_time = 1.1

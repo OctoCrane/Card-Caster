@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name Actor
 
-@export var health := 100
+@export var status : Status
 
 @export var auto_bhop := true
 
@@ -13,12 +13,24 @@ class_name Actor
 @export var air_accel := 10.0
 @export var air_cap := 0.85
 
+func _ready() -> void:
+	status.is_dead.connect(on_is_dead)
+	status.took_damage.connect(on_took_damage)
+
 func get_move_input_dir() -> Vector2:
 	return Vector2.ZERO
 
 func get_move_dir() -> Vector3:
 	var input_dir = get_move_input_dir()
 	return (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+func get_look_dir() -> Vector3:
+	var look_dir = transform.basis * Vector3(0.0,0.0,1.0)
+	return look_dir
+
+func get_global_look_dir() -> Vector3:
+	var look_dir = global_transform.basis * Vector3(0.,0.,1.)
+	return look_dir
 
 func get_jump(_held := false) -> bool:
 	return false
@@ -86,6 +98,12 @@ func handle_air_physics(delta:float,air_move_speed:float):
 		clip_velocity(get_floor_normal(), 1.0)
 
 func damage(dm: int):
-	health -= dm
-	if health < 0:
-		health = 0
+	status.health -= dm
+	if status.health <= 0:
+		queue_free()
+
+func on_is_dead():
+	queue_free()
+
+func on_took_damage(dm : int):
+	print(dm)

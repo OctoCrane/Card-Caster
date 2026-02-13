@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://beejgi4xufsnx"]
+
+[ext_resource type="Script" uid="uid://j8btlud5vuwo" path="res://turret.gd" id="1_3oylf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tjdg3"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c5apd"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3oylf"]
+radius = 5.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_coqkk"]
+top_radius = 0.05
+bottom_radius = 0.2
+height = 0.56
+
+[node name="Turret" type="CharacterBody3D" node_paths=PackedStringArray("detection", "head")]
+script = ExtResource("1_3oylf")
+detection = NodePath("Detection")
+head = NodePath("Head")
+metadata/_custom_type_script = "uid://hb51tycmxpjf"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_tjdg3")
+
+[node name="Swivel" type="MeshInstance3D" parent="."]
+mesh = SubResource("CylinderMesh_c5apd")
+
+[node name="Detection" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Detection"]
+shape = SubResource("SphereShape3D_3oylf")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="HeadMesh" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(-1, 8.742278e-08, 0, 3.821371e-15, 4.371139e-08, -1, -8.742278e-08, -1, -4.371139e-08, 0, 0.012168109, -0.26574016)
+mesh = SubResource("CylinderMesh_coqkk")
+skeleton = NodePath("../..")

@@ -48,9 +48,9 @@ func shoot():
 		if bullet_type == "Hitscan":
 			var result = weapon_manager.raycast(new_offset)
 			if result:
-				if result.collider:
-					if result.collider is Actor:
-						weapon_manager.actor.damage(damage_per_bullet)
+				var collider = result.collider
+				if collider is HurtBox:
+					collider.actor.damage(damage_per_bullet)
 
 func switch_states(new_state : States):
 	if new_state != current_state:

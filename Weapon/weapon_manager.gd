@@ -18,19 +18,21 @@ func raycast(offset := Vector3.ZERO, ray_range := 1000):
 		ray_end = ray_origin + head.project_ray_normal(centre) * ray_range
 	else:
 		ray_origin = head.global_position + offset
-		ray_end = ray_origin + head.transform.basis * Vector3(0,0,ray_range)
+		ray_end = ray_origin + head.global_transform.basis * Vector3(0,0,-ray_range)
 	
 	var query := PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	query.collide_with_areas = true
+	query.collision_mask = (1 << 1 - 1) | (1 << 2 - 1) # Collision Mask 1 and 2
 	var result = get_world_3d().direct_space_state.intersect_ray(query)
 	
 	if result:
-		debug_line(ray_origin, result.position)
+		add_debug_line(ray_origin, result.position)
 	else:
-		debug_line(ray_origin, ray_end)
+		add_debug_line(ray_origin, ray_end)
 	
 	return result
 
-func debug_line(origin:Vector3, end:Vector3):
+func add_debug_line(origin:Vector3, end:Vector3):
 	var line := Path3D.new()
 	
 	var curve := Curve3D.new()
